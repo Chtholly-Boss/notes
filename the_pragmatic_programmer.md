@@ -89,17 +89,17 @@
    -  GUI advantage: what you see is what you get
    -  GUI disvantage: what you see is all you get
 -  Achieve Edit Fluency
-   -  ![basic skills](./figure/prag_2.png)
+   -  ![basic skills](./figure/prag/prag_2.png)
    -  When Repeat doing one thing,try to search a convenient way
    -  When Learning a new Feature,Keep using it until being familiar with it.
 -  Always Use Version Control
-   -  ![coffee_experiment](./figure/prag_3.png)
+   -  ![coffee_experiment](./figure/prag/prag_3.png)
    -  Learn to use Git
 -  Debugging
    -  Fix the Problem,not the Blame
    -  Failing Test Before Fixing Code
       -  we want a bug that can be reproduced with a single command. It’s a lot harder to fix a bug if you have to go through 15 steps to get to the point where the bug shows up.
-   -  ![Bug_Check_List](./figure/prag_4.png)
+   -  ![Bug_Check_List](./figure/prag/prag_4.png)
 -  Learn a Text Manipulation Language
 -  Write Engineering Daybooks
    -  Using Pen and Paper
@@ -144,9 +144,9 @@
          -  map_idle,map_work,map_done
          -  every map stores input-nstat entries and input-action entries
          -  State Declaration:
-         -  ![fsm_1](./figure/prag_fsm1.png)
+         -  ![fsm_1](./figure/prag/prag_fsm1.png)
          -  Kernel:
-         -  ![fsm_2](./figure/prag_fsm2.png)
+         -  ![fsm_2](./figure/prag/prag_fsm2.png)
    -  Observer Pattern
    -  Publish/Subscribe
       -  Like a FIFO
