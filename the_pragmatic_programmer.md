@@ -1,11 +1,11 @@
 # 程序员修炼之道
 ## Preface
-- 喜欢尝试 & 快速适应
-- 好奇心
-- 未经证实不会轻易接受
-- 试图深刻理解问题
-- 关注你的技艺
-- 思考自己正在做什么
+- like new things and quick adaptation
+- curiosity
+- critical thinking
+- try to deeply understand the problem
+- Focus on your skills
+- Think what you are doing now
 
 **Pragmatic and Persistent**
 ## ch1
@@ -166,3 +166,16 @@
          -  mixin
 -   Parameterize Your App Using External Configuration
     -   Configuration as a service
+  
+## ch6
+- Breaking Temporal Coupling
+  -  Analyze Workflow to Improve Concurrency
+-  Shared State is Incorrect State
+   -  Nonatomic Updates
+   -  Semaphores(信号量/锁) and other forms of exclusion
+   -  Make the resource transactional
+   -  Random Failures Are Often Concurrency Issues
+-  Actors and Processes
+   -  Message in the mailbox will be consumed one by one
+   -  No explicit concurrency
+-  Use Blackboards to Coordinate Workflow
