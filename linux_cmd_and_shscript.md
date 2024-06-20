@@ -166,4 +166,76 @@ pattern3) commands2;;
 *) default commands;;
 esac
 ```
+## ch13:More Structured Commands
+```shell
+#!/bin/bash
+# for Loop
+for var in list
+do 
+  commands
+done
+# for loop assumes list is separated by spaces --- blank,tab,newline
+# read var from variable
+list="A B C D E"
+list=$list" F" # a shortway to concatenate list
+for char in $list
+do
+  echo "Current character is $char"
+done
+# read var from file(separated by space)
+file="states.txt"
+for state in $(cat $file)
+do 
+  echo "beautiful state: $state"
+done
+# read var from wildcards
+for file in /home/*
+do
+  commands
+done
+# can be piped or redirection
+for file in /home/*
+do 
+  echo "file"
+done | sort > output.txt
+# Modify variable IFS to use your own delimiter
+# The default value of IFS is built into the shell itself. It's not something external to the shell you can find without looking at the shell's source code
+IFS=$'\n' # use \n as delimiter
+# in the following case,\n and : and ; and " are all delimiters
+IFS=$'\n:;"' # use more than one delimiter
 
+# C-like for loop
+for (( i=1; i <= 10; i++ ))
+do
+  echo $i
+done
+```
+```shell
+# while Loop
+while test command
+do
+  commands
+done
+# Just like if-then
+# Multi-test: Only the last command will be used to terminate the loop
+while command1 command2
+do
+  doSomething
+done
+##################
+# until Loop: when test is not successful
+until test command
+do
+  commands
+done
+# example
+until [ $var -eq 0 ] 
+dp
+  echo $var
+  var=$[ $var - 25 ]
+done
+```
+Appendix:
+- break and continue acts C-like
+  - break n:by default,`n=1`,means the level to jump out
+  - continue n:similar as `break n`
