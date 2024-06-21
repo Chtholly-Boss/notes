@@ -66,6 +66,8 @@
   - `tail -n(number of lines) num file`
   - `head -n(number of lines) num file`
 ## ch4: More Base Shell Commands
+## ch5:
+## ch6:
 ## ch10: Text Editor
 This chapter is skipped.
 ## ch11: Basic Scripts
@@ -239,3 +241,115 @@ Appendix:
 - break and continue acts C-like
   - break n:by default,`n=1`,means the level to jump out
   - continue n:similar as `break n`
+## ch14:Handling User Input
+- Positional Parameter
+  - `$0 $1-$9 ${10}-...`
+```shell
+# Using basename with $0 
+name = $(basename $0)
+echo this script name is $name
+exit
+# before using positional parameter,You must check if it is empty
+if [ -n $1 ]
+then
+  do something with $1
+fi
+# Using $# to get number of parameters
+echo The number of paramters is $#
+echo The last parameter is ${!#} # Note that ${$#} won't work
+# Using $* and $@ to traversing the parameters
+# $* will treat all parameters as one
+# $@ will treat parameters as a list
+for param in "$*"
+do
+  echo $param # only print once
+done
+
+for param in "$@"
+do
+  echo $param # print parmas' number times,one by one
+done
+# Using shift to shift position of parameters
+while [ -n $1 ]
+do 
+  echo $1
+  shift  # $1=$2,$2=$3...
+  # you can also shift n times
+  shift 2 # $1,2,3... = $3,4,5...
+done
+# Using Shift and Case to handle options
+while [ -n $1 ]
+do
+  case "$1" in 
+    -a) echo "-a Option Found";;
+    -b) echo "...";;
+    -c) echo "...";;
+    *) echo "$1 is Not an Option";;
+  esac
+done
+# Using getopt to handle parameters
+# `man opt` to get help
+set -- $(getopt -q ab:cd "$@") # substitute the position parameters with $()
+echo
+while [ -n $1 ]
+do
+  case "$!" in
+    ...
+  esac
+done
+# getopt will treat "param1 param2" as "param1 | param2",i.e.2 params
+# Using getopts
+# `man getopts` to get help
+while getopts :ab:c opt
+do
+  case $opt in
+    ... 
+  esac
+done
+``` 
+![common-option](./figure/linux_cmd_and_shscripts/ch14_common_option.png)
+Appendix:
+- `read`: see [command-note](./cmd_note.md)
+## ch15: Presenting Data
+```shell
+# error redirection in shell
+ls -al badfile 2> error.log # prefix file descripter to > 
+ls -al badfile &> output.log # stdout and stderr both send to output.log
+# Temporary Redirection in script
+echo "this is an error" >&2 # output to &2 fd,which is stderr
+# Permanent Redirection in script
+exec 1>out.log # redirect stdout to out.log
+exec 2>error.log # redirect stderr to error.log
+exec 0<input.txt # redirect stdin
+# example 
+exec 0< testfile
+while read line
+do
+  echo "LIne in the file: $line"
+done
+# Create your own fd
+exec 3>myfd.txt
+echo "To my file descripter" >&3
+# redirect fd
+exec 3>&1 # redirect &3 to &1
+# read/write using different fd:if only one,the pointer is hard to control
+# close a fd
+exec 3>&-
+# Use lsof to check fd being used
+# `man lsof` to get help
+lsof -a -p $$ -d 0,1,2
+# discard output
+ls -ad > /dev/null
+# flush file: needn't rm and touch again
+cat /dev/null > testfile
+# Use mktemp to create temporary file in /tmp.`man mktemp` to get help
+# Use tee to simutaneously write and display
+echo hello world | tee testfile
+echo hello another world | tee -a testfile
+```
+## ch16:Create Functions
+## ch17 
+## ch18:Introducting sed and gawk
+## ch19:Regular Expresstions 
+## ch20:Advanced sed
+## ch21:Advanced gawk
