@@ -179,3 +179,53 @@
    -  Message in the mailbox will be consumed one by one
    -  No explicit concurrency
 -  Use Blackboards to Coordinate Workflow
+## ch7
+- Listen to Your Lizard Brain
+> Sometimes a design just feels wrong, or some requirement makes you feel uneasy. **Stop and analyze these feelings**. If you’re in a supportive environment, express them out loud. Explore them. The chances are that there’s something lurking in that dark doorway. Listen to your instincts and avoid the problem before it jumps out at you.
+
+- Don't Program by coincidence
+  - Always be aware of what you are doing,Don't be the frog
+  - Explain your work
+  - Don't code in the dark.If you’re not sure why it works, you won’t know why it fails.
+  - Proceed from a plan
+  - Rely only on reliable things:Don't assume something might be true and use it in the assuming way
+  -  Document your assumptions
+  -  Don’t just test your code, but test your assumptions as well. Don’t guess; actually try it
+  -  Prioritize your effort:If you don’t have fundamentals or infrastructure correct, brilliant bells and whistles will be irrelevant
+  - Don’t be a slave to history. Don’t let existing code dictate future code. All code can be replaced if it is no longer appropriate
+- Algorithm Speed
+  - Big O notation
+  - Estimate the Order of Your Algorithms
+  - Test Your Estimates
+  - Best isn't always best
+    - Be Pragmatic! Sometimes a $O(n^2)$ will be faster than $O(nlogn)$
+- Refactoring
+  - Definition: disciplined technique for restructuring an existing body of code, altering its internal structure without changing its external behavior
+    - The activity is disciplined, not a free-for-all
+    - External behavior does not change; this is not the time to add features
+  - When to refactor:
+    - Duplication
+    - Nonorthogonal design
+    - Outdated knowledge
+    - Usage
+    - Performance
+    - The Tests Pass
+  -  Refactor Early, Refactor Often
+-  Test to Code
+   -  the major benefits of testing happen when you think about and write the tests, not when you run them.
+   -  A Test Is the First User of Your Code
+   -  Build End-to-End, Not Top-Down or Bottom Up
+   -   If the code broke once, it is likely to break again.Don’t just throw away the test you created; add it to the existing unit test arsenal.
+- Stay Safe Out There
+    1. Minimize Attack Surface Area
+    2. Principle of Least Privilege
+    3. Secure Defaults
+    4. Encrypt Sensitive Data
+    5. Maintain Security Updates
+- Name Well; Rename When Needed
+
+
+
+## ch8
+
+## ch9
