@@ -203,3 +203,11 @@ cudaMalloc(&ptr, 256 * sizeof(float));
 cudaMemcpyToSymbol(devPointer, &ptr, sizeof(ptr));
 ```
 `cudaGetSymbolAddress()` is used to retrieve the address pointing to the memory allocated for a variable declared in global memory space. The size of the allocated memory is obtained through `cudaGetSymbolSize()`.
+
+### cuFFT 
+Self-Optimization for FFT see [My_FFT](./fft.md).This section is just for describing the use of cuFFT,lay the foundation of `How to Profiler the performance` Section.
+
+To call cuFFT routines in `foo.cu`,include file `cufft.h` or `cufftXt.h` into `foo.cu` and include the library in the link line like the following:
+
+`nvcc [options] filename.cu … -I/usr/local/cuda/inc -L/usr/local/cuda/lib -lcufft`
+
