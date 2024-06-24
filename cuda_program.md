@@ -12,6 +12,12 @@ Quick Links:
     - [Configuration](#configuration)
     - [Programming Model {#model}](#programming-model-model)
     - [Programming Interface {#interface}](#programming-interface-interface)
+    - [API](#api)
+      - [cuFFT](#cufft)
+    - [Profile](#profile)
+      - [Docs](#docs)
+      - [Notes](#notes)
+        - [Nsight System](#nsight-system)
 ### Configuration
 `nvidia-smi` to see which version of cuda to be installed
 Go to [cuda-toolkit-Download-Site](https://developer.nvidia.com/cuda-toolkit) to download the corresponding version
@@ -203,11 +209,22 @@ cudaMalloc(&ptr, 256 * sizeof(float));
 cudaMemcpyToSymbol(devPointer, &ptr, sizeof(ptr));
 ```
 `cudaGetSymbolAddress()` is used to retrieve the address pointing to the memory allocated for a variable declared in global memory space. The size of the allocated memory is obtained through `cudaGetSymbolSize()`.
-
-### cuFFT 
-Self-Optimization for FFT see [My_FFT](./fft.md).This section is just for describing the use of cuFFT,lay the foundation of `How to Profiler the performance` Section.
+### API
+#### cuFFT 
+Self-Optimization for FFT see [My FFT Notes](./fft.md).This section is just for describing the use of cuFFT,lay the foundation of `How to Profiler the performance` Section.
 
 To call cuFFT routines in `foo.cu`,include file `cufft.h` or `cufftXt.h` into `foo.cu` and include the library in the link line like the following:
 
 `nvcc [options] filename.cu … -I/usr/local/cuda/inc -L/usr/local/cuda/lib -lcufft`
+
+### Profile
+#### Docs
+[Nsight Systems](https://docs.nvidia.com/nsight-systems/index.html)
+[Nsight Compute](https://docs.nvidia.com/nsight-compute/index.html)
+#### Notes
+##### Nsight System
+`nsys --help` to get common uses
+- `nsys profile foo`: specify options and begin analysis.
+- interactive commands 
+
 

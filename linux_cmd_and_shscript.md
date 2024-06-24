@@ -1,4 +1,12 @@
 # Linux Command Line and Shell Script Bible
+## Table of Contents
+- [ch1](#ch1-linux-shell)
+- [ch2](#ch2-getting-to-the-shell)
+- [ch3](#ch3-bash-shell-basic-commands)
+- [ch4](#ch4-more-base-shell-commands)
+- [ch17](#ch17)
+- [ch19](#ch19introducting-sed-and-gawk)
+
 ## ch1: Linux Shell
 - Kernel
   - System Memory Management
@@ -347,9 +355,88 @@ cat /dev/null > testfile
 echo hello world | tee testfile
 echo hello another world | tee -a testfile
 ```
-## ch16:Create Functions
-## ch17 
-## ch18:Introducting sed and gawk
-## ch19:Regular Expresstions 
-## ch20:Advanced sed
-## ch21:Advanced gawk
+## ch16:
+## ch17:Creating Functions
+```shell
+# Declare function
+function name {
+  ...
+}
+# another way
+name() {
+  ...
+}
+# to call a function,just type it like a command
+function name {
+  echo hello world
+}
+name
+# function should be declared before called
+# re-declare function will overwrite
+##################################
+# return value of function can be one of the followings:
+# 1. the return value of the last command in the function(default)
+# 2. use `return value`
+# 3. use $(function name): the output of name
+function db {
+  read -p "enter a value:" value
+  return $value
+}
+
+function db {
+  read -p "enter a value:" value
+  echo $[ $value * 2 ]
+}
+result=${db}
+# Functions are like tiny script,You can use position parameters
+# You can use $# to get the total number of parameters
+# To pass script params to functions,You should do it manually
+# This is a bad example
+function bad {
+  echo $[ $1 + $2 ]
+}
+bad # not work
+bad $1 $2 # correct
+# global variables : declared outside the function
+# if function modify the variable,the effect is permanent
+# to handle this,use `local`
+value=1
+function modify {
+  value = $[ $value + 1 ] # value will be modified even outside the function
+  local value = $[ $value + 1 ] # only in the funciton
+}
+# use `source foo` to activate foo in the current context
+# suppose in file foo
+function add {
+  echo $[ $1 + $2 ]
+}
+# and in another file bar
+# we want to use function add
+source ./foo # activate foo in the bar's context,`. ./foo` is also correct
+add 10 15
+```
+## ch18:
+## ch19:Introducting sed and gawk
+### sed
+`sed` is for `stream editor`
+```shell
+# sed won't modify in-place,it just process the input and send to output
+echo "This is a test" | sed 's/test/big test/' # s is substitute
+# To use more command,specify -e or -f
+sed -e 's/pattern a/pattern b/; s/pattern c/pattern d/' foo.txt
+sed -f command_list.txt foo.txt # command stored in a file line by line
+```
+```shell
+# More Commands of sed
+# Substitution
+```
+### gawk
+`gawk` is for `GNU awk`
+```shell
+# a gawk script should be wrap using {}
+# Besides, it will be treat as a string,so '' is also needed
+gawk '{print hello world}' foo.txt
+```
+## ch20:Regular Expresstions 
+## ch21:Advanced sed
+## ch22:Advanced gawk
