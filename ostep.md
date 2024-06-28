@@ -52,3 +52,47 @@
   - APUE:chapters on Process Control, Process Relationships, and Signals
   - “A fork() in the road” by Andrew Baumann, Jonathan Appavoo, Orran Krieger, Timothy Roscoe. HotOS ’19, Bertinoro, Italy
 ![api-terms](./figure/ostep/process_api_terms.png)
+## Direct Execution
+- Challenges
+  - Performance
+  - Control
+- Limited Direct Execution
+  - run the program directly on the CPU
+  - Problem:
+  - how can the OS make sure the program `doesn’t do anything that we don’t want it to do`, while still running it efficiently?
+  - when we are running a process, how does the operating system s`top it
+from running and switch to another process`, thus `implementing the time
+sharing` we require to virtualize the CPU
+- Restricted Operations
+  - user mode and kernel mode
+  - using system call
+    - the parts of the C library that make system calls are hand-coded in assembly
+    - To execute a system call, a program must execute a special `trap` instruction
+    - When finished, the OS calls a special `return-from-trap` instruction
+    - trap table: locations of `trap handlers`
+    - a system-call number is usually assigned to each system call
+- LDE protocol
+  - In the first (at boot time), the kernel initializes the trap table, and the CPU remembers its location for subsequent use(via privileged instruction)
+  - In the second (when running a process), the kernel sets up a few things (e.g., allocating a node on the process list, allocating memory) before using a return-from-trap instruction to start the execution of the process; this switches the CPU to user mode and begins running the process.
+- Switch Between Processes
+  - A Cooperative Approach: Wait For System Calls
+    - yield
+    - trap
+    - infinite loop? --- `reboot the machine`
+  - A Non-Cooperative Approach: The OS Takes Control
+    - a timer interrupt
+  - Saving and Restoring Context
+    -  whether to continue running the currently-running process, or switch to a different one.  --- made by scheduler
+    -  when trapped
+       -  current regs -> kernel stack of A
+       -  switch ? 
+       -  if switch, move kernel regs to process structure of A(in memory)
+       -  jump to kernel stack of B
+       -  restore regs of B
+-  interrupt concurrency
+   -  disable interrupts during interrupt processing
+   -  locking 
+-  relevant reads
+   -  “Why Aren’t Operating Systems Getting Faster as Fast as Hardware?” by J. Ousterhout. USENIX Summer Conference, June 1990
+
+![mechanism_terms](./figure/ostep/cpu_mechanisms_terms.png)
