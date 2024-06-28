@@ -227,5 +227,25 @@
 
 
 ## ch8
-
+- No one knows exactly what they want
+  - Programmers Help People Understand What They Want
+  - Requirements Are Learned in a Feedback Loop
+  - Work with a User to Think Like a User
+  - Policy Is Metadata
+  - Use a Project Glossary
+- Don’t Think Outside the Box—Find the Box
+  - When faced with an intractable problem, enumerate all the possible avenues you have before you. Don’t dismiss anything,no matter how unusable or stupid it sounds. 
+  - Go through the list and explain why a certain path cannot be taken. Are you sure? Can you prove it?
+- Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.
+  - Don’t Go into the Code Alone
+  - Pair Programming
+  - Mob Programming
+- Agile Is Not a Noun; Agile Is How You Do Things
+  - Individuals and interactions over processes and tools
+  - Working software over comprehensive documentation
+  - Customer collaboration over contract negotiation
+  - Responding to change over following a plan
 ## ch9
+about teamwork.
+
+not necessary to read now
