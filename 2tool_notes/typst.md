@@ -11,7 +11,7 @@
   image("glacier.jpg", width: 70%),
   caption: [
     caption
-  ],
+  ]
 ) <label>
 ```
 
@@ -31,5 +31,8 @@
 // Unnamed Function : like anonymous function
 it => [#it #it]
 ```
+
+## issues
+- inside a function,# sometimes not needed,but sometimes needed
 ## Useful Packages
 [Useful Package to display different kinds of information](https://typst.app/universe/package/gentle-clues)
