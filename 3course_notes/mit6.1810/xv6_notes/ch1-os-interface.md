@@ -79,6 +79,19 @@ The same underlying file, called an **inode**, can have multiple names, called *
 - `chdir(path)`: change directory in the **child**
 - `cd`: must be built-in to change the current working directory
 ```C
+// `fstat(fd,&state)` retrieves info from the inode it refers to into state
+// kernel/stat.h
+struct stat {
+  int dev; // File system’s disk device
+  uint ino; // Inode number
+  short type; // Type of file
+  short nlink; // Number of links to file
+  uint64 size; // Size of file in bytes
+};
+
+```
+
+```C
 // Belows are the same
 chdir("/a");
 chdir("b");
