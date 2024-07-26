@@ -38,6 +38,29 @@ The xv6 kernel sources are in the `kernel/` directory.
 
 Inter-Module interfaces are defined in `defs.h`
 
+`defs.h` just define the structs and functions used by different parts.It mainly looks like the follows:
+```C
+struct buf;
+struct context;
+struct file;
+struct inode;
+...
+
+// bio.c
+void            binit(void);
+struct buf*     bread(uint, uint);
+void            brelse(struct buf*);
+void            bwrite(struct buf*);
+void            bpin(struct buf*);
+void            bunpin(struct buf*);
+
+// console.c
+void            consoleinit(void);
+void            consoleintr(int);
+void            consputc(int);
+...
+```
+
 ## Process Overview
 The unit of Isolation: Process
 
@@ -48,10 +71,43 @@ Mechanisms used by kernel to implement process:
 
 ![virtual address space](./figures/ch2_vaslayout.png)
 
+```C
+// in kernel/riscv.h
+// one beyond the highest possible virtual address.
+// MAXVA is actually one bit less than the max allowed by
+// Sv39, to avoid having to sign-extend virtual addresses
+// that have the high bit set.
+#define MAXVA (1L << (9 + 9 + 9 + 12 - 1))
+```
 > the **trampoline page** contains the code to **transition in and out of the kernel** and mapping the **trapframe** is necessary to **save/restore the state of the user process**
 
 states of a process are stored in `struct proc`,located in `kernel/proc.h:85`
+```C
+struct proc {
+  struct spinlock lock;
 
+  // p->lock must be held when using these:
+  enum procstate state;        // Process state
+  void *chan;                  // If non-zero, sleeping on chan
+  int killed;                  // If non-zero, have been killed
+  int xstate;                  // Exit status to be returned to parent's wait
+  int pid;                     // Process ID
+
+  // wait_lock must be held when using this:
+  struct proc *parent;         // Parent process
+
+  // these are private to the process, so p->lock need not be held.
+  uint64 kstack;               // Virtual address of kernel stack
+  uint64 sz;                   // Size of process memory (bytes)
+  pagetable_t pagetable;       // User page table
+  struct trapframe *trapframe; // data page for trampoline.S
+  struct context context;      // swtch() here to run process
+  struct file *ofile[NOFILE];  // Open files
+  struct inode *cwd;           // Current directory
+  char name[16];               // Process name (debugging)
+};
+
+```
 Each process has 2 stacks. Process’s thread alternates between actively using its **user stack** and its **kernel stack**.
 
 - Process can make a system call using `ecall`
@@ -71,7 +127,23 @@ Each process has 2 stacks. Process’s thread alternates between actively using 
 > In summary, a process bundles **two design ideas: an address space** to give a process the illusion of its own memory, and, **a thread**, to give the process the illusion of its own CPU
 
 ## Code:starting xv6,the first process and system call
-An overview,see the corresponding part for detail.
+!!! attention This Part is of the most importance to do the lab !
+
+* powers on
+  * initialize itself and run a boot loader to load xv6 kernel into memory
+  * start at `_entry` (`kernel/entry.S`)
+* codes at `_entry` loads a stack pointer register `sp`
+  * Now the kernel has a stack
+  * `_entry` call `start`(`kernel/start.c`)
+* `start` performs some configuration and switch from machine mode to supervisor mode
+  * to enter supervisor mode,`mret` instruction
+  * change into `main`(`kernel/main.c`)
+* `main` initialize devices and subsystems
+  * call `userinit`(`kernel/proc.c`) to create the 1st process
+  * the process make the 1st system call
+  * `initcode.S` load `SYS_EXEC`(`kernel/syscall.h`) into a7 and call `ecall` to re-enter kernel
+  * once the call returns,it returns to user space in the /init process.`init`(`user/init.c`) create a new console device,starts a shell.
+* The system is up!
 
 ## Security Model
 - The operating system must assume that a **process’s user-level code will do its best to wreck the kernel or other processes**
