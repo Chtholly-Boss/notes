@@ -26,11 +26,17 @@ make grade
 make GRADEFLAGS=sleep grade
 ```
 ### sleep
-Just a warmup.Learn how to pass arguments to command using:
+Just a warmup. Learn how to pass arguments to command using:
 ```C
-int main(int argc,char* argv[]){
-    // argc: number of arguments.
-    // argv: arguments
+int
+main(int argc, char *argv[])
+{
+    if (argc <= 1) {
+        fprintf(2, "Usage: sleep time\n");
+        exit(1);
+    }
+    sleep(atoi(argv[1]));
+    exit(0);
 }
 ```
 ### pingpong
@@ -39,6 +45,44 @@ A exercise on `read` and `write` plus `pipe` usage.
 
 A pipe has a read-end and write-end, not just 2 fd to read from or write to.
 To ping-pong a byte between 2 processes,we need a pair of pipes,one for each direction.
+
+```C
+int main(int argc,char* argv) {
+    int pid;
+    int p_P2C[2];
+    int p_C2P[2];
+    char buf[512];
+    pipe(p_P2C);
+    pipe(p_C2P);
+
+    if (fork() == 0) {
+        close(0);
+        dup(p_P2C[0]); // Read from p[0]
+        close(p_P2C[0]);
+        close(p_P2C[1]);
+        pid = getpid();
+        while (read(0,buf,sizeof buf) > 0) {
+            fprintf(1,"%d: received ping\n",pid);
+            write(p_C2P[1],buf,1);
+        }
+    } else {
+        pid = getpid();
+        close(0);
+        dup(p_C2P[0]);
+        close(p_C2P[0]);
+        close(p_C2P[1]);
+        // Start Ping a byte
+        write(p_P2C[1],"h",1);
+        close(p_P2C[1]);
+        if (read(0,buf,sizeof buf) > 0) {
+            fprintf(1,"%d: received pong\n",pid);
+            //write(p_P2C[1],buf,1);
+        }
+    }
+    exit(0);
+}
+
+```
 ### primes
 First,you must read through [Bell Labs and CSP Threads](https://swtch.com/~rsc/thread/) to figure out how to do it.
 
@@ -89,6 +133,24 @@ int fork2filt(int* p) {
     }
     exit(0);
 }
+
+int main(int argc,char* argv[]) {
+    int p[2];
+    pipe(p);
+    if (fork() == 0)
+    {
+        fork2filt(p);
+    } else {
+        close(p[0]);
+        for (int i = 2; i < 36; i++) {
+            write(p[1],&i,4);
+        }
+        close(p[1]);
+        // Wait for the main prime process to end
+        wait((int*) 0);
+    }
+    exit (0);
+}
 ```
 ### find
 Find out how `ls` works
@@ -122,49 +184,91 @@ case T_DIR:
   }
 ```
 
-Based on the code above
 ```C
-switch (st.type) {
-  case T_DEVICE:
-  case T_FILE:
-      if (strcmp(fmtname(path),pattern) == 0) {
-          fprintf(1,path);
-          fprintf(1,"\n");
-      }
-      break;
-  case T_DIR:
-      if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
-          printf("find: path too long\n");
-          break;
-      }
-      strcpy(buf, path);
-      p = buf+strlen(buf);
-      *p++ = '/';
-      while(read(fd, &de, sizeof(de)) == sizeof(de)){
-          if(de.inum == 0)
-              continue;
-          if(strcmp(de.name,".") == 0)
-              continue;
-          if(strcmp(de.name,"..") == 0)
-              continue;
-          memmove(p, de.name, DIRSIZ);
-          p[DIRSIZ] = 0;
-          find(buf,pattern);
-      }
-      break;
+// Following are my solution
+char* fmtname(char* path);
+void find(char* path,char* pattern);
+int main(int argc,char* argv[]) {
+    if (argc != 3) {
+        fprintf(2,"Usage: find dir pattern\n");
+        exit(1);
+    }
+    char *path,*pattern;
+    path = argv[1];
+    pattern = argv[2];
+    find(path,pattern);
+    exit(0);
+}
+void find(char* path,char* pattern) {
+    int fd;
+    struct stat st;
+    char buf[512], *p;
+    struct dirent de;
+    if((fd = open(path, 0)) < 0){
+        fprintf(2, "find: cannot open %s a\n", path);
+        return;
     }
 
+    if(fstat(fd, &st) < 0){
+        fprintf(2, "find: cannot stat %s\n", path);
+        close(fd);
+        return;
+    }
+    switch (st.type) {
+        case T_DEVICE:
+        case T_FILE:
+            if (strcmp(fmtname(path),pattern) == 0) {
+                fprintf(1,path);
+                fprintf(1,"\n");
+            }
+            break;
+        case T_DIR:
+            if(strlen(path) + 1 + DIRSIZ + 1 > sizeof buf){
+                printf("find: path too long\n");
+                break;
+            }
+            strcpy(buf, path);
+            p = buf+strlen(buf);
+            *p++ = '/';
+            while(read(fd, &de, sizeof(de)) == sizeof(de)){
+                if(de.inum == 0)
+                    continue;
+                if(strcmp(de.name,".") == 0)
+                    continue;
+                if(strcmp(de.name,"..") == 0)
+                    continue;
+                memmove(p, de.name, DIRSIZ);
+                p[DIRSIZ] = 0;
+                find(buf,pattern);
+            }
+            break;
+    }
+    close(fd);
+    return;
+}
+char* fmtname(char* path) {
+    static char *p;
+    p = "";
+    for(p=path+strlen(path); p >= path && *p != '/'; p--)
+        ;
+    p++;
+    return p;
+}
 ```
 ### xargs
 A simple case using `exec`
 ```C
-// Use MAXARGS to declare argv and cp the parent's argv
-char* cmdArgv[MAXARG];
-for (int i = 1; i < argc; i++) {
-    cmdArgv[i-1] = argv[i];
-}
-// Execute line by line
-for(;;) {
+char* getline();
+int main(int argc,char* argv[]) {
+    if (argc < 1) {
+        fprintf(2,"Usage: xargs command [arguments...]");
+        exit(1);
+    }
+    char* cmdArgv[MAXARG];
+    for (int i = 1; i < argc; i++) {
+        cmdArgv[i-1] = argv[i];
+    }
+    for(;;) {
         cmdArgv[argc-1] = getline();
         if(strcmp(cmdArgv[argc-1],"") == 0) break;
         if (fork() == 0)
@@ -175,6 +279,20 @@ for(;;) {
         }
     }
     exit(0);
+}
+
+char* getline() {
+    static char buf[512];
+    buf[0] = 0;
+    int id = 0;
+    char s;
+    while(read(0,&s,1) > 0) {
+        if(s == '\n') break;
+        buf[id++] = s;
+    }
+    buf[id] = '\0';
+    return buf;
+}
 
 ```
 ## Conclusion
