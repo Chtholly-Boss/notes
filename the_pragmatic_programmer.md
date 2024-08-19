@@ -1,16 +1,5 @@
 # 程序员修炼之道
-## Preface
-- like new things and quick adaptation
-- curiosity
-- critical thinking
-- try to deeply understand the problem
-- Focus on your skills
-- Think what you are doing now
-
-**Pragmatic and Persistent**
 ## ch1
-
-- Try to change when not satisfied
 - Give Options,not Excuses(what you can do for this situation?)
 - Don't ignore Broken Windows(Fix Bug as soon as possible,at least Left `TODO: `)
   - Don't leave Broken windows

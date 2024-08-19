@@ -1,10 +1,25 @@
-# Errors in Daily Use
+# Windows
+## Installation
 
-#### 触控板失灵
+## Useful Tools
+* [Visual-Studio](https://visualstudio.microsoft.com/)
+* [Scoop](https://github.com/ScoopInstaller/Install)
+* [anaconda](https://www.anaconda.com/download)
+* [utool](https://www.u.tools/)
+```bash
+# python
+scoop install python
+```
+
+## Shell Commands
+* `dir`: like `ls -a` under linux
+
+## Bugs
+### 触控板失灵
 设备管理器 - 人机接口 - I2C - 卸载设备 - 重启
 卸载设备后重启，Windows会重新下载该服务
 
-#### wsl安装报错
+### wsl安装报错
 `wsl --install` 报错“没有注册表”。
 首先检查相关服务打开没有。进入控制面板-程序-启用或关闭windows功能，打开：
 
