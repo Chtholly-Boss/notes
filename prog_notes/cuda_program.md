@@ -1,20 +1,7 @@
 # Cuda Programming
-## Documents
-[Cuda Reference](https://docs.nvidia.com/cuda/index.html)
-[Cuda C Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
-[Cuda C Best Practices Guide](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html)
-[cuFFT API](https://docs.nvidia.com/cuda/cufft/index.html)
-
 ### Configuration
 `nvidia-smi` to see which version of cuda to be installed
 Go to [cuda-toolkit-Download-Site](https://developer.nvidia.com/cuda-toolkit) to download the corresponding version
-
-![automatic-scalability](./figure/cuda/automatic-scalability.png)
-On current GPUs, a thread block may contain up to 1024 threads.
-The number of threads per block and the number of blocks per grid specified in the <<<...>>> syntax can be of type `int` or `dim3`
-![](./figure/cuda/grid-of-thread-blocks.png)
-Each block within the grid can be identified by a one-dimensional, two-dimensional, or three-dimensional unique index accessible within the kernel through the built-in `blockIdx` variable. The dimension of the thread block is accessible within the kernel through the built-in `blockDim` variable.
-Thread blocks are required to execute independently: It must be possible to execute them in any order, in parallel or in series. This independence requirement allows thread blocks to be scheduled in any order across any number of cores, enabling programmers to write code that scales with the number of cores.
 
 Similar to how threads in a thread block are guaranteed to be co-scheduled on a streaming multiprocessor, thread blocks in a cluster are also guaranteed to be co-scheduled on a GPU Processing Cluster (GPC) in the GPU.
 ![grid-of-clusters](./figure/cuda/grid-of-clusters.png)
@@ -22,8 +9,6 @@ Thread blocks that belong to a cluster have access to the Distributed Shared Mem
 ![memory-hierarchy](./figure/cuda/memory-hierarchy.png)
 the CUDA programming model assumes that the CUDA threads execute on a physically separate device that operates as a coprocessor to the host running the C++ program. This is the case, for example, when the kernels execute on a GPU and the rest of the C++ program executes on a CPU.
 The CUDA programming model also assumes that both the host and the device maintain their own separate memory spaces in DRAM, referred to as host memory and device memory, respectively. 
-
-> Asychronous Model May be an advanced way of Programming --- Left to be learnt
 
 The compute capability of a device is represented by a version number, also sometimes called its “SM version”. This version number identifies the features supported by the GPU hardware and is used by applications at runtime to determine which hardware features and/or instructions are available on the present GPU.
 

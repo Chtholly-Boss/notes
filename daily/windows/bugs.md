@@ -1,19 +1,3 @@
-# Windows
-## Installation
-
-## Useful Tools
-* [Visual-Studio](https://visualstudio.microsoft.com/)
-* [Scoop](https://github.com/ScoopInstaller/Install)
-* [anaconda](https://www.anaconda.com/download)
-* [utool](https://www.u.tools/)
-```bash
-# python
-scoop install python
-```
-
-## Shell Commands
-* `dir`: like `ls -a` under linux
-
 ## Bugs
 ### 触控板失灵
 设备管理器 - 人机接口 - I2C - 卸载设备 - 重启

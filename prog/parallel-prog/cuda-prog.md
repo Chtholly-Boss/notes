@@ -1,4 +1,16 @@
 # CUDA Programming
+## Documents
+[Cuda Reference](https://docs.nvidia.com/cuda/index.html)
+[Cuda C Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html)
+[Cuda C Best Practices Guide](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html)
+[cuFFT API](https://docs.nvidia.com/cuda/cufft/index.html)
+## Setup
+```bash
+# get the compute capability
+$ nvidia-smi --query-gpu=compute_cap --format=csv
+```
+* on my lenovo: 6.1
+
 ## CUDA “Hello World"
 ```C
 void vecadd(float *A_h, float *B_h, float *C_h, int n){
