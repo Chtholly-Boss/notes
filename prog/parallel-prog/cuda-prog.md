@@ -184,3 +184,6 @@ Pitfalls:
 ![optimization-checklist](./figures/cuda-optimizations.png)
 
 ## Profiler
+### documents
+[Nsight Systems](https://docs.nvidia.com/nsight-systems/index.html)
+[Nsight Compute](https://docs.nvidia.com/nsight-compute/index.html)
