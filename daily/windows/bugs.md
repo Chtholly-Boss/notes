@@ -6,6 +6,9 @@
 * `devmgmt.msc`: 设备管理器
 * `cmd`: 命令行
 * `powershell`: Powershell
+### Microsoft Store 一直加载中
+把Clash或第三方代理软件关掉就行了
+
 ### 触控板失灵
 设备管理器 - 人机接口 - I2C - 卸载设备 - 重启
 卸载设备后重启，Windows会重新下载该服务
