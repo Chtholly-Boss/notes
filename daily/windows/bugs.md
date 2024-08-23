@@ -1,4 +1,11 @@
 ## Bugs
+`win+r`:
+* `explorer`: 文件资源管理器
+* `iexplore`: edge浏览器
+* `taskmgr`: 任务管理器
+* `devmgmt.msc`: 设备管理器
+* `cmd`: 命令行
+* `powershell`: Powershell
 ### 触控板失灵
 设备管理器 - 人机接口 - I2C - 卸载设备 - 重启
 卸载设备后重启，Windows会重新下载该服务
@@ -23,3 +30,14 @@ wsl.exe --list --online
 wsl.exe -d <dist>
 ```
 然后就可以正常启动wsl了。
+
+### 找不到WLAN
+重装 windows11 时必须联网，但是没有WLAN选项。
+可能原因：
+* 缺少驱动：
+  * 查看：`win+r`或者`cmd`中输入 `devmgmt.msc`打开设备管理器，查看网络适配器下是否有无线网卡驱动
+  * 解决方案：用U盘到官网下载驱动，如我的DELL G15 5520，到 [driver-site](https://www.dell.com/support/home/zh-cn/product-support/product/g-series-15-5520-laptop/drivers) 下载网卡的两个驱动程序，然后装到DELL里。
+* 服务未启动：
+  * 查看及解决方案：`win+r`中输入`taskmgr`启动任务管理器，点击服务选项卡，打开服务，找到WLAN相关的服务并设置为自动启动
+
+
