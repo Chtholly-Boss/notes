@@ -18,10 +18,11 @@
   * [ ] C implementation and profile 
   * [ ] CUDA implementation and profile
 * html
-  * [ ] Introduction
+  * [x] Introduction
   * [ ] Multimedia and embedding 
   * [ ] tables
 * Computer Networking: A Top-Down Approach
   * [ ] ch1
 * Programming Massively Parallel Processors
   * [ ] Convolution
+* css
