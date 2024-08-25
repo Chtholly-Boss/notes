@@ -33,4 +33,4 @@
   * [ ] Styling text
   * [ ] CSS layout
 * Visual Group Theory
-  * [ ] ch2: What do Groups look like
+  * [ ] ch3: Why study groups
