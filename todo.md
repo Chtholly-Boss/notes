@@ -1,6 +1,4 @@
 # TODO List
-* python:
-  * [ ] matplotlib: scatter
 * 15445:
   * [ ] Lecture Notes 1
   * [ ] Proj 0: cpp primer 
