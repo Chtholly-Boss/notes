@@ -1,37 +1,31 @@
 # TODO List
-* 15445:
-  * [ ] Lecture Notes 1
-  * [ ] Proj 0: cpp primer 
-* Database System Concepts
-  * [x] ch1
-  * [ ] ch2
-* ostep:
-  * [ ] 4: processes
-* craft interpreters
-  * [ ] review 5-7 and write corresponding code
-  * [ ] 8: Statement and State
-* algorithm and data structure
-  * Graph
-    * [x] description
-    * [x] DFS
-    * [ ] BFS
+## Project 
 * Optimize FFT
-  * [x] python implementaion for special cases(radix-2 input)
-  * [x] python implementation for variable-length input
   * [ ] python implementation for Multi-Dimensional FFT
   * [ ] cuFFT samples
   * [ ] CUDA implementation
   * [ ] Profile
+## Courses
+* 15445:
+  * [x] Lecture Notes 1
+  * [ ] Proj 0: cpp primer 
 * Computer Networking: A Top-Down Approach
   * [ ] ch1
-* Programming Massively Parallel Processors
-  * [ ] Stencil
+* ostep:
+  * [ ] 5: Process API
+* craft interpreters
+  * [ ] review 5-7 and write corresponding code
+  * [ ] 8: Statement and State
 * css
-  * [ ] CSS first steps
   * [ ] CSS Building Blocks
-  * [ ] Styling text
-  * [ ] CSS layout
+    * [ ] Cascade, specificity, and inheritance
+## Algorithms
+## Books
+* Programming Massively Parallel Processors
+  * [x] Stencil
+  * [ ] Histogram
 * Visual Group Theory
-  * [x] ch1
-  * [x] ch2
   * [ ] ch3: Why study groups
+* Database System Concepts
+  * [x] ch2
+  

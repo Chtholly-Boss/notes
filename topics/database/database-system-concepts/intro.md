@@ -1,6 +1,4 @@
 # Intro
-TODO:
-* [ ] 1.6 Database Engine
 ## Database Applications:
 * online transaction processing
 * data analytics

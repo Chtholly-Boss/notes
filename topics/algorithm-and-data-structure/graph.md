@@ -74,3 +74,7 @@ def bfs_traversal(graph: List[List[int]], n: int):
         if not visited[i]:  # If the vertex is not visited
             bfs(graph, i, visited)
 ```
+
+* [number-of-island](https://leetcode.cn/problems/number-of-islands/description/)
+  * This problem can also be solved using BFS
+  * The key in BFS is the **quene**
