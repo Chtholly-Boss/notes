@@ -1,9 +1,8 @@
 # TODO List
 ## Project 
 * Optimize FFT
-  * [ ] python implementation for Multi-Dimensional FFT
   * [ ] cuFFT samples
-  * [ ] CUDA implementation
+  * [x] CUDA implementation
   * [ ] Profile
 ## Courses
 * 15445:
@@ -23,9 +22,11 @@
 ## Books
 * Programming Massively Parallel Processors
   * [x] Stencil
-  * [ ] Histogram
+  * [ ] Reduction
+  * [ ] Merge
 * Visual Group Theory
   * [ ] ch3: Why study groups
 * Database System Concepts
-  * [x] ch2
+  * [ ] ch27
+  * [ ] ch3-5
   

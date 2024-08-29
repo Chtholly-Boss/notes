@@ -94,3 +94,26 @@ p img {
 }
 
 ```
+
+### Cascade, specificity, and inheritance
+Cascade
+  : * Source Order
+      * same specificity, the last will win
+    * Specificity
+    * Importance
+
+Specificity
+  : * An **element** selector is **less specific**
+    * A **class** selector is **more specific**
+    * ![weight](./figure/css-weight.png)
+    * inline style beats all
+```css
+.better {
+  background-color: gray;
+  border: none !important; /* !important will beat all, even inline style */
+}
+```
+Inheritance
+  : * some CSS property values set on parent elements are inherited by their child elements, and some aren't.
+    * `inherit` `initial` `revert` `revert-layer` `unset`
+    * `all: inherit/...`  
