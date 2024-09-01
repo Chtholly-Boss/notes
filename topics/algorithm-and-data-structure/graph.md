@@ -78,3 +78,26 @@ def bfs_traversal(graph: List[List[int]], n: int):
 * [number-of-island](https://leetcode.cn/problems/number-of-islands/description/)
   * This problem can also be solved using BFS
   * The key in BFS is the **quene**
+
+### Union Find
+A Data Structure especially for **Union** and **Find**. 
+```python
+class UnionFind:
+    def __init__(self):
+      # a list with each value represents its parent
+        self.parent = list(range(26))
+    def find(self,index):
+        if index == self.parent[index]:
+            return index
+        # Route compression.
+        # each node in the find route will be directly connect to the root
+        self.parent[index] = self.find(self.parent[index])
+        return self.parent[index]
+    def union(self,index1,index2):
+        self.parent[self.find(index1)] = self.find(index2)
+```
+
+* [number-of-province](https://leetcode.cn/problems/number-of-provinces/description/)
+  * This problem is the direct implementation of Union-Find, especially maintain a `branch` variable.
+* [Satisfiability-of-equality-equations](https://leetcode.cn/problems/satisfiability-of-equality-equations/)
+  * This problem shows that Union-Find is suitable for processing relations.
