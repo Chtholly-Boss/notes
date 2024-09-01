@@ -41,6 +41,20 @@ tmux
     * rename: `tmux rename-session -t old new`
 * `C-b z`: zoom in or zoom out
 
+## Common Workflow
+```sh
+# create a session to work with
+tmux new -s name
+# create new window when necessary
+### in tmux
+prefix + , # name the current window
+# Split pane when necessary
+
+# when done, detach
+prefix + d
+# kill the session in bash
+tmux kill-session -t name
+```
 ## Configurations
 * create a `.tmux.conf` in your home directory
 ```bash
